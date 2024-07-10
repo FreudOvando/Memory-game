@@ -8,10 +8,10 @@ import Header from './component/Header';
 const App: React.FC = () => {
   const [started, setStarted] = useState<boolean>(false);
   const [gameComplete, setGameComplete] = useState<boolean>(false);
+  const [won, setWon] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const [difficulty, setDifficulty] = useState<string>('easy');
 
-  
   const handleStart = (userName: string, userDifficulty: string) => {
     setName(userName);
     setDifficulty(userDifficulty);
@@ -19,7 +19,8 @@ const App: React.FC = () => {
     setGameComplete(false);
   };
 
-  const handleGameComplete = () => {
+  const handleGameComplete = (won: boolean) => {
+    setWon(won);
     setGameComplete(true);
     setStarted(false);
   };
@@ -29,21 +30,21 @@ const App: React.FC = () => {
     setGameComplete(false);
   };
 
-  
-
   return (
     <div className="flex items-center flex-col">
       <Header />
-      
       {gameComplete ? (
-        <EndScreen onRestart={handleRestart} />
+        <EndScreen onRestart={handleRestart} won={won} />
       ) : started ? (
-        <GameBoard name={name} difficulty={difficulty} onGameComplete={handleGameComplete} />
+        <GameBoard 
+          name={name} 
+          difficulty={difficulty} 
+          onGameComplete={handleGameComplete}
+        />
       ) : (
         <StartScreen onStart={handleStart} />
       )}
-
-<Footer/>
+      <Footer />
     </div>
   );
 };

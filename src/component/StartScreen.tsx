@@ -12,12 +12,12 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
     if (name) {
       onStart(name, difficulty);
     } else {
-      alert("Por favor ingrese su nombre.");
+      alert("Please set name");
     }
   };
 
   return (
-    <div className="flex flex-col rounded-3xl text-center items-center mt-10 p-10 bg-opacity-50 bg-[#888] dark:bg-violet-300 w-[30rem] h-[30rem] mx-auto max-sm:w-[20rem] ">
+    <div className="flex flex-col rounded-3xl text-center items-center mt-10 p-10 bg-opacity-50 bg-[#888] dark:bg-violet-950 w-[30rem] h-[30rem] mx-auto max-sm:w-[20rem] ">
       <h1 className='text-3xl mb-4'>Memory Game</h1>
       <label className='text-xl'>
         Set Name:

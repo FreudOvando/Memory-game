@@ -10,7 +10,7 @@ interface Card {
 interface GameBoardProps {
   name: string;
   difficulty: string;
-  onGameComplete: () => void;
+  onGameComplete: (won: boolean) => void;
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({ name, difficulty, onGameComplete }) => {
@@ -41,9 +41,15 @@ const GameBoard: React.FC<GameBoardProps> = ({ name, difficulty, onGameComplete 
 
   useEffect(() => {
     if (matchedPairs === cardData.length) {
-      onGameComplete();
+      onGameComplete(true);
     }
   }, [matchedPairs, onGameComplete]);
+
+  useEffect(() => {
+    if (attemptsLeft < 0) {
+      onGameComplete(false);
+    }
+  }, [attemptsLeft, onGameComplete]);
 
   const shuffleArray = (array: any[]) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -79,16 +85,16 @@ const GameBoard: React.FC<GameBoardProps> = ({ name, difficulty, onGameComplete 
 
   return (
     <div className="font-serif bg-opacity-50 flex items-center flex-col">
-      <div className="flex items center flex-col text-center my-10 rounded-2xl bg-slate-300 dark:bg-violet-300 bg-opacity-50 text-slate-900 max-sm:w-[20rem] " >
-        <div className='text-2xl m-1 p-1'> Player : <span  className='text-xl'>{name}</span> </div>
-        <div className='text-2xl m-1 p-1'>successes: <span className='text-xl'>{matchedPairs}</span></div>
-        <div className='text-2xl m-1 p-1'>lives: <span className='text-xl'>{attemptsLeft}</span></div>
+      <div className="flex items-center flex-col text-center my-10 rounded-2xl bg-slate-300 dark:bg-violet-300 bg-opacity-50 text-slate-900 max-sm:w-[20rem]">
+        <div className="text-2xl m-1 p-1"> Player : <span className="text-xl">{name}</span> </div>
+        <div className="text-2xl m-1 p-1">successes: <span className="text-xl">{matchedPairs}</span></div>
+        <div className="text-2xl m-1 p-1">lives: <span className="text-xl">{attemptsLeft}</span></div>
       </div>
-      <div className="grid grid-cols-4 gap-4 w-[10rem] mx-auto max-sm:grid-cols-2 ">
+      <div className="grid grid-cols-4 gap-4 w-[10rem] mx-auto max-sm:grid-cols-2">
         {cards.map((card, index) => (
-          <div key={index} className="flex items-center pointer bg-[#000] dark:bg-violet-300 " onClick={() => handleCardClick(index)}>
+          <div key={index} className="flex items-center pointer bg-[#000] dark:bg-violet-300" onClick={() => handleCardClick(index)}>
             {flippedCards.includes(index) || card.matched ? (
-              <img className='max-w-[100%] max-h-[100%] w-[100%] h-[100%] ' src={card.image} alt={`Card ${card.id}`} />
+              <img className="max-w-[100%] max-h-[100%] w-[100%] h-[100%]" src={card.image} alt={`Card ${card.id}`} />
             ) : (
               <div className="h-[120px]" />
             )}
