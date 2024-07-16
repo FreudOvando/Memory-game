@@ -85,18 +85,18 @@ const GameBoard: React.FC<GameBoardProps> = ({ name, difficulty, onGameComplete 
 
   return (
     <div className="font-serif bg-opacity-50 flex items-center flex-col">
-      <div className="flex items-center flex-col text-center my-10 rounded-2xl bg-slate-300 dark:bg-violet-300 bg-opacity-50 text-slate-900 max-sm:w-[20rem]">
+      <div className="flex items-center flex-col text-center my-10 rounded-2xl bg-slate-300 dark:bg-violet-300 bg-opacity-50 text-slate-900 max-sm:w-[20rem] w-[30rem] ">
         <div className="text-2xl m-1 p-1"> Player : <span className="text-xl">{name}</span> </div>
         <div className="text-2xl m-1 p-1">successes: <span className="text-xl">{matchedPairs}</span></div>
         <div className="text-2xl m-1 p-1">lives: <span className="text-xl">{attemptsLeft}</span></div>
       </div>
-      <div className="grid grid-cols-4 gap-4 w-[10rem] mx-auto max-sm:grid-cols-2">
+      <div className="grid grid-cols-6 gap-4 w-full mx-auto max-sm:grid-cols-2">
         {cards.map((card, index) => (
-          <div key={index} className="flex items-center pointer bg-[#000] dark:bg-violet-300" onClick={() => handleCardClick(index)}>
+          <div key={index} className="flex items-center pointer w-[150px] h-[150px] bg-[#000] dark:bg-violet-300" onClick={() => handleCardClick(index)}>
             {flippedCards.includes(index) || card.matched ? (
-              <img className="max-w-[100%] max-h-[100%] w-[100%] h-[100%]" src={card.image} alt={`Card ${card.id}`} />
+              <img className=" w-[150px] h-[150px]" src={card.image} alt={`Card ${card.id}`} />
             ) : (
-              <div className="h-[120px]" />
+              <div className="w-[150px] h-[150px]" />
             )}
           </div>
         ))}
